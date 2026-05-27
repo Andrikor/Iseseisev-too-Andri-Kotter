@@ -1,0 +1,11 @@
+---
+- name: Set hostname from template
+  ansible.builtin.template:
+    src: templates/hostname.j2
+    dest: /etc/hostname
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Apply hostname immediately
+  command: hostname -F /etc/hostname
