@@ -1,0 +1,11 @@
+---
+- name: Deploy netplan configuration
+  ansible.builtin.template:
+    src: templates/netplan.yml.j2
+    dest: /etc/netplan/00-installer-config.yaml
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Apply netplan configuration
+  command: netplan apply
