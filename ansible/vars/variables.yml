@@ -1,0 +1,26 @@
+---
+# Network configuration
+gateway: 10.0.1.1
+dns1: 1.1.1.1
+dns2: 8.8.8.8
+
+# VM hostnames and IPs
+vms:
+  web01:
+    hostname: web-01
+    ip_addr: 10.0.1.10
+  db01:
+    hostname: db-01
+    ip_addr: 10.0.1.11
+  monitor01:
+    hostname: monitor-01
+    ip_addr: 10.0.1.12
+
+# PostgreSQL configuration
+db_name: studentapp
+db_user: studentadmin
+db_password: studentpass
+
+# Application configuration
+app_dir: /opt/studentapp
+app_port: 5000
