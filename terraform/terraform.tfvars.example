@@ -1,0 +1,14 @@
+# Copy this file to terraform.tfvars and fill in your values
+# Do NOT commit terraform.tfvars to version control
+
+pm_api_url          = "https://192.168.1.100:8006/api2/json"
+pm_api_token_id     = "terraform@pam!mytoken"
+pm_api_token_secret = "YOUR-SECRET-TOKEN-HERE"
+target_node         = "pve"
+template_name       = "ubuntu-2404-cloudinit-template"
+storage             = "local-lvm"
+ssh_public_key      = "ssh-rsa AAAA... your-key-here"
+
+vm_names = ["web-01", "db-01", "monitor-01"]
+vm_ips   = ["10.0.1.10", "10.0.1.11", "10.0.1.12"]
+gateway  = "10.0.1.1"
