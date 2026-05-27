@@ -1,0 +1,59 @@
+---
+- name: Install monitoring utilities
+  apt:
+    name:
+      - htop
+      - iotop
+      - nethogs
+      - nload
+      - ncdu
+      - sysstat
+      - net-tools
+      - curl
+      - wget
+      - lsof
+      - tcpdump
+      - unzip
+    state: present
+    update_cache: yes
+
+- name: Enable sysstat data collection
+  lineinfile:
+    path: /etc/default/sysstat
+    regexp: '^ENABLED='
+    line: 'ENABLED="true"'
+  notify: Restart sysstat
+
+- name: Install Prometheus Node Exporter
+  apt:
+    name: prometheus-node-exporter
+    state: present
+    update_cache: yes
+
+- name: Enable and start Node Exporter
+  systemd:
+    name: prometheus-node-exporter
+    enabled: yes
+    state: started
+
+- name: Configure UFW - allow SSH
+  ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+
+- name: Configure UFW - allow Node Exporter
+  ufw:
+    rule: allow
+    port: '9100'
+    proto: tcp
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+
+handlers:
+  - name: Restart sysstat
+    systemd:
+      name: sysstat
+      state: restarted
