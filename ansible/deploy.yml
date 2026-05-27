@@ -1,0 +1,38 @@
+---
+- name: Configure all VMs
+  hosts: all
+  become: yes
+  vars_files:
+    - vars/variables.yml
+  gather_facts: yes
+  roles:
+    - update
+    - netplan
+    - hostname
+
+- name: Deploy Flask application on web-01
+  hosts: web
+  become: yes
+  vars_files:
+    - vars/variables.yml
+  gather_facts: yes
+  roles:
+    - docker
+
+- name: Configure PostgreSQL on db-01
+  hosts: db
+  become: yes
+  vars_files:
+    - vars/variables.yml
+  gather_facts: yes
+  roles:
+    - postgresql
+
+- name: Configure monitoring on monitor-01
+  hosts: monitor
+  become: yes
+  vars_files:
+    - vars/variables.yml
+  gather_facts: yes
+  roles:
+    - monitoring
